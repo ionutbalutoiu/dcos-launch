@@ -472,6 +472,9 @@ ACS_ENGINE_SCHEMA = {
     'dcos_linux_bootstrap_url': {
         'type': 'string',
         'required': False},
+    'windows_image_source_url': {
+        'type': 'string',
+        'required': False},
     'ssh_user': {
         'type': 'string',
         'required': True,

@@ -31,6 +31,7 @@ def generate_acs_engine_template(
         windows_admin_user: str,
         windows_admin_password: str,
         linux_admin_user: str,
+        windows_image_source_url: str,
         ):
     """ Generates the template provided to ACS-engine
     """
@@ -92,6 +93,8 @@ def generate_acs_engine_template(
             }
         }
     }
+    if windows_image_source_url:
+        template["properties"]["windowsProfile"]["WindowsImageSourceUrl"] = windows_image_source_url
     return template
 
 
@@ -172,7 +175,8 @@ class ACSEngineLauncher(dcos_launch.util.AbstractLauncher):
             self.config['linux_public_vm_size'],
             self.config['windows_admin_user'],
             self.config['windows_admin_password'],
-            self.config['linux_admin_user'])
+            self.config['linux_admin_user'],
+            self.config.get('windows_image_source_url'))
         linux_bs_url = self.config.get('dcos_linux_bootstrap_url')
         arm_template, self.config['template_parameters'] = run_acs_engine(self.config['acs_engine_tarball_url'], acs_engine_template)  # noqa
         if linux_bs_url:
